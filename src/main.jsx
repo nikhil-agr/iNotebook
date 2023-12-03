@@ -6,6 +6,7 @@ import App from "./App.jsx";
 import ErrorPage from "./components/Errorpage/Errorpage.jsx";
 import About from "./components/About/About.jsx";
 import Home from "./components/Home/Home.jsx";
+import NoteState from "./context/notes/NoteState.jsx";
 
 const router = createBrowserRouter([
   {
@@ -15,7 +16,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <Home />
+        element: <Home />,
       },
       {
         path: "about",
@@ -27,6 +28,9 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <NoteState>
+
+      <RouterProvider router={router} />
+    </NoteState>
   </React.StrictMode>
 );
