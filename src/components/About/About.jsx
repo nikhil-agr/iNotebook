@@ -8,7 +8,7 @@ const About = () => {
   }, [])
   
   return (
-    <div className="text-white">
+    <div>
         This is About {a.state.name} and he is in college: {a.state.college}
     </div>
   );

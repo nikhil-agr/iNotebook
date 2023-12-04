@@ -1,18 +1,47 @@
 import React, { useContext } from "react";
-import noteContext from "../../context/notes/noteContext";
+import Notes from "../Notes/Notes";
 
 const Home = () => {
-  const context = useContext(noteContext);
-  const { notes, setNotes } = context;
   return (
-    <div className="text-white">
-      <h1 className="text-danger">This is iNotebook</h1>
-      <h3 className="text-warning">Your Notes Secured In The Cloud</h3>
-
-      <h1 className="text-center mt-5">Your Notes</h1>
-      {notes.map((note) => {
-        return note.title;
-      })}
+    <div className="container mt-5">
+        <h3>Add A Note</h3>
+      <form>
+        <div className="mb-3">
+          <label for="exampleInputEmail1" className="form-label">
+            Email address
+          </label>
+          <input
+            type="email"
+            className="form-control"
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+          />
+        </div>
+        <div className="mb-3">
+          <label for="exampleInputPassword1" className="form-label">
+            Password
+          </label>
+          <input
+            type="password"
+            className="form-control"
+            id="exampleInputPassword1"
+          />
+        </div>
+        <div className="mb-3 form-check">
+          <input
+            type="checkbox"
+            className="form-check-input"
+            id="exampleCheck1"
+          />
+          <label className="form-check-label" for="exampleCheck1">
+            Check me out
+          </label>
+        </div>
+        <button type="submit" className="btn btn-primary">
+          Submit
+        </button>
+      </form>
+      <Notes />
     </div>
   );
 };
