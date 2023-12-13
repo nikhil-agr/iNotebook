@@ -19,7 +19,6 @@ const NoteState = (props) => {
       },
     });
     const json = await response.json();
-    console.log(json);
 
     setNotes(json);
   };
@@ -36,19 +35,8 @@ const NoteState = (props) => {
         },
         body: JSON.stringify({title, description, tag }),
     });
-    const json = await response.json();
-    // console.log(json)
-    
-    const note = {
-      _id: json._id,
-      user: "65697948d64432bc81544f16",
-      title: json.title,
-      description: description,
-      tag: tag,
-      date: "2023-12-01T09:40:44.349Z",
-      __v: 0,
-    };
-    setNotes(notes.concat(note));
+    const note = await response.json();
+        setNotes(notes.concat(note));
   };
 
   // Delete a note
@@ -63,9 +51,7 @@ const NoteState = (props) => {
       },
     });
     const json = await response.json();
-    console.log(json);
 
-    console.log("Deleting the note with id" + id);
     const newNotes = notes.filter((note) => {
       return note._id !== id;
     });
@@ -76,7 +62,7 @@ const NoteState = (props) => {
   const editNote = async (id, title, description, tag) => {
     // API Call
     const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
         "auth-token":
@@ -86,15 +72,19 @@ const NoteState = (props) => {
     });
     const json = await response.json();
 
+    let newNotes = JSON.parse(JSON.stringify(notes))
+
     // Logic to edit in client
-    for (let index = 0; index < notes.length; index++) {
-      const element = notes[index];
+    for (let index = 0; index < newNotes.length; index++) {
+      const element = newNotes[index];
       if (element._id === id) {
-        element.title = title;
-        element.description = description;
-        element.tag = tag;
+        newNotes[index].title = title;
+        newNotes[index].description = description;
+        newNotes[index].tag = tag;
+        break;
       }
     }
+    setNotes(newNotes)
   };
 
   return (

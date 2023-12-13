@@ -5,28 +5,30 @@ import noteContext from "../../context/notes/noteContext";
 
 const Notes = () => {
   const context = useContext(noteContext);
-  const { notes, getNotes } = context;
+  const { notes, getNotes, editNote } = context;
   useEffect(() => {
     getNotes();
   }, []);
+  const ref = useRef(null);
+  const refClose = useRef(null);
 
   const [note, setNote] = useState({
+    id: "",
     etitle: "",
     edescription: "",
     etag: "default",
   });
   const updateNote = (currentNote) => {
     ref.current.click();
-    setNote({etitle: currentNote.title, edescription: currentNote.description, etag: currentNote.tag})
-  };
-  const handleClick = (e) => {
-      console.log("updating the note...", note)
-    e.preventDefault();
+    setNote({ id: currentNote._id, etitle: currentNote.title, edescription: currentNote.description, etag: currentNote.tag});
+};
+const handleClick = (e) => {
+    editNote(note.id, note.etitle, note.edescription, note.etag)
+    refClose.current.click();
   };
   const onChange = (e) => {
     setNote({ ...note, [e.target.name]: e.target.value });
   };
-  const ref = useRef(null);
   return (
     <>
       <AddNote />
@@ -76,7 +78,9 @@ const Notes = () => {
                     name="etitle"
                     onChange={onChange}
                     value={note.etitle}
-                    />
+                    minLength={5}
+                    required
+                  />
                 </div>
                 <div className="mb-3">
                   <label htmlFor="description" className="form-label">
@@ -89,7 +93,9 @@ const Notes = () => {
                     name="edescription"
                     onChange={onChange}
                     value={note.edescription}
-                    />
+                    minLength={5}
+                    required
+                  />
                 </div>
                 <div className="mb-3">
                   <label htmlFor="tag" className="form-label">
@@ -102,19 +108,27 @@ const Notes = () => {
                     name="etag"
                     onChange={onChange}
                     value={note.etag}
+                    minLength={5}
+                    required
                   />
                 </div>
               </form>
             </div>
             <div className="modal-footer">
               <button
+                ref={refClose}
                 type="button"
                 className="btn btn-secondary"
                 data-bs-dismiss="modal"
               >
                 Close
               </button>
-              <button type="button" className="btn btn-primary" onClick={handleClick}>
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={handleClick}
+                disabled={note.etitle.length < 5 || note.edescription.length < 5}
+              >
                 Update Note
               </button>
             </div>
@@ -126,6 +140,7 @@ const Notes = () => {
         <h4 className="text-center mt-5 text-decoration-underline">
           Your Notes
         </h4>
+        {notes.length === 0 && <h5>No Notes to display</h5> }
         {notes.map((notes) => {
           return (
             <Noteitem key={notes._id} updateNote={updateNote} note={notes} />
