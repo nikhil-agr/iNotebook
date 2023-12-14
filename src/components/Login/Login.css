@@ -129,3 +129,12 @@ a.socialIcon:hover,
     transition: all 0.8s;
     transition: all 0.8s
 }
+
+.invalid{
+    padding-inline: 20px;
+    padding-block: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}

@@ -3,10 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 
 const Login = () => {
-
-   const [credentials, setCredentials] = useState({email:"", password:""})
-   const naviagte = useNavigate() // In the latest version of react-router-dom (version 6), the useHistory hook has been replaced with the useNavigate hook1.
-
+  const [credentials, setCredentials] = useState({ email: "", password: "" });
+  const naviagte = useNavigate(); // In the latest version of react-router-dom (version 6), the useHistory hook has been replaced with the useNavigate hook1.
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,22 +13,24 @@ const Login = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email:credentials.email , password: credentials.password }),
+      body: JSON.stringify({
+        email: credentials.email,
+        password: credentials.password,
+      }),
     });
     const json = await response.json();
     console.log(json);
-    if(json.success){
-        // save the authtoken and redirect
-        localStorage.setItem('token', json.authtoken)
-        naviagte('/');
-
-    }else{
-        alert("Invalid Credentials")
+    if (json.success) {
+      // save the authtoken and redirect
+      localStorage.setItem("token", json.authtoken);
+      naviagte("/");
+    } else {
+      alert("Invalid Credentials");
     }
   };
 
   const onChange = (e) => {
-    setCredentials({...credentials, [e.target.name]: e.target.value})
+    setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
 
   useEffect(() => {
@@ -72,9 +72,14 @@ const Login = () => {
                   onChange={onChange}
                   autoComplete="on"
                 />
-                <Link className="forgot text-white" to={"/"}>
-                  Forgot password?
-                </Link>
+                <div className="invalid">
+                  <Link className="forgot text-white" to={"/"}>
+                    Forgot password?
+                  </Link>
+                  <Link className="forgot text-white" to={"/signup"}>
+                    Doesn't Have An Account?
+                  </Link>
+                </div>
 
                 <input type="submit" name="" value="Login" to={"/"} />
 
