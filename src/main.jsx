@@ -7,6 +7,8 @@ import ErrorPage from "./components/Errorpage/Errorpage.jsx";
 import About from "./components/About/About.jsx";
 import Home from "./components/Home/Home.jsx";
 import NoteState from "./context/notes/NoteState.jsx";
+import Login from "./components/Login/Login.jsx";
+import Signup from "./components/Signup/Signup.jsx";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +26,17 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "/login",
+    element: <Login />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/signup",
+    element: <Signup />,
+    errorElement: <ErrorPage />,
+  },
+  
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
