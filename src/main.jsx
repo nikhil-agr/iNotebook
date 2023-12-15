@@ -24,18 +24,26 @@ const router = createBrowserRouter([
         path: "about",
         element: <About />,
       },
+      {
+        path: "login",
+        element: <Login />
+      },
+      {
+        path: "signup",
+        element: <Signup />
+      },
     ],
   },
-  {
-    path: "/login",
-    element: <Login />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "/signup",
-    element: <Signup />,
-    errorElement: <ErrorPage />,
-  },
+//   {
+//     path: "/login",
+//     element: <Login />,
+//     errorElement: <ErrorPage />,
+//   },
+//   {
+//     path: "/signup",
+//     element: <Signup />,
+//     errorElement: <ErrorPage />,
+//   },
   
 ]);
 
